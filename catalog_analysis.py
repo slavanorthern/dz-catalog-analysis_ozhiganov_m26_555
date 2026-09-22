@@ -25,7 +25,9 @@ movies = [
 ]
 
 
+
 # Этап 1. Разминка: переменные, числа, math
+
 
 
 # Функция возвращает среднюю оценку по каталогу 
@@ -61,7 +63,9 @@ def duration_in_hours(minutes):
     return f"{hours}ч {remaining_minutes}м"
 
 
+
 # Этап 2. Условия и match
+
 
 
 # Фунция показывает категорию фильма по оценке
@@ -82,3 +86,41 @@ def decade_label(year):
             return "недавние"
         case _ if year < 2015:
             return "старые"
+
+
+
+# Этап 3. Циклы
+
+
+# Фильмы не из жанра comedy
+for movie in movies:
+    if "comedy" in movie["genres"]:
+        continue
+
+    print(movie["title"])
+
+
+# Ищем первый фильм с рейтингом выше 9.0
+index = 0
+
+while index < len(movies):
+    movie = movies[index]
+
+    if movie["rating"] > 9.0:
+        print(movie["title"])
+        break
+
+    index += 1
+else:
+    print("Шедевров не найдено")
+
+
+# Функция для подсчета фильмо длинее порога в параметре threshold
+def count_long_movies(movies, threshold=120):
+    count = 0
+
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+
+    return count
