@@ -25,9 +25,10 @@ movies = [
 ]
 
 
+# Этап 1. Разминка: переменные, числа, math
 
-# Функция возвращает среднюю оценку по каталогу,
-# округленную до одного знака 
+
+# Функция возвращает среднюю оценку по каталогу 
 def average_rating(movies):
     total_rating = 0
 
@@ -58,3 +59,26 @@ def duration_in_hours(minutes):
     remaining_minutes = minutes % 60
 
     return f"{hours}ч {remaining_minutes}м"
+
+
+# Этап 2. Условия и match
+
+
+# Фунция показывает категорию фильма по оценке
+def rating_tier(rating):
+    if rating >= 9:
+        return "шедевр"
+    elif rating >= 7:
+        return "хорошо"
+    else:
+        return "средне" if rating >= 5 else "слабо"
+
+# Фунция показывает декаду по году
+def decade_label(year):
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if 2015 <= year <= 2020:
+            return "недавние"
+        case _ if year < 2015:
+            return "старые"
