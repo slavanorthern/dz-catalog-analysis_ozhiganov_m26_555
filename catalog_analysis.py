@@ -93,26 +93,56 @@ def decade_label(year):
 
 
 # Фильмы не из жанра comedy
-for movie in movies:
-    if "comedy" in movie["genres"]:
-        continue
 
-    print(movie["title"])
+# Код закомментирован и ниже изменения, чтобы при выполнении этапа 9
+# автоматически не выводились дополнительные строки  
+# for movie in movies:
+#     if "comedy" in movie["genres"]:
+#         continue
+#
+#     print(movie["title"])
+
+
+def print_non_comedy_movies(movies):
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+
+        print(movie["title"])
 
 
 # Ищем первый фильм с рейтингом выше 9.0
-index = 0
 
-while index < len(movies):
-    movie = movies[index]
+# Код закомментирован и ниже изменения, чтобы при выполнении этапа 9
+# автоматически не выводились дополнительные строки  
 
-    if movie["rating"] > 9.0:
-        print(movie["title"])
-        break
+# index = 0
+#
+# while index < len(movies):
+#     movie = movies[index]
+#
+#     if movie["rating"] > 9.0:
+#         print(movie["title"])
+#         break
+#
+#     index += 1
+# else:
+#     print("Шедевров не найдено")
 
-    index += 1
-else:
-    print("Шедевров не найдено")
+
+def find_first_masterpiece(movies):
+    index = 0
+
+    while index < len(movies):
+        movie = movies[index]
+
+        if movie["rating"] > 9.0:
+            print(movie["title"])
+            break
+
+        index += 1
+    else:
+        print("Шедевров не найдено")
 
 
 # Функция для подсчета фильмо длинее порога в параметре threshold
@@ -272,11 +302,19 @@ def iter_high_rated(movies, min_rating=8.0):
 
 
 # Вывод фильмов с высоким рейтингом, используя iter_high_rated
-for movie in iter_high_rated(movies):
-    print(format_report_line(movie))
+
+# Код закомментирован и ниже изменения, чтобы при выполнении этапа 9
+# автоматически не выводились дополнительные строки
+# for movie in iter_high_rated(movies):
+#     print(format_report_line(movie))
 
 
-# Генеративное выражение, где 
+def print_high_rated_movies(movies):
+    for movie in iter_high_rated(movies):
+        print(format_report_line(movie))
+
+
+# Генеративное выражение, где
 # суммарная длительность фильмов с рейтингом выше 7
 total_high_rated_duration = sum(
     movie["duration_min"]
@@ -284,3 +322,48 @@ total_high_rated_duration = sum(
     if movie["rating"] > 7
 )
 
+
+
+# Этап 9. Итоговый отчет
+
+
+# Функция делеат итоговый отчет по каталогу
+def build_report(movies):
+    average = average_rating(movies)
+    average_age = catalog_age_stats(movies)[2]
+
+    print("ОТЧЕТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {average}")
+    print(f"Средний возраст фильмов: {average_age} лет")
+    print()
+
+    print("Топ-3 фильма:")
+    top_movies = top_n_by_rating(movies, 3)
+
+    for title, rating in top_movies:
+        for movie in movies:
+            if movie["title"] == title and movie["rating"] == rating:
+                print(f"  {format_report_line(movie)}")
+                break
+
+    print()
+
+    print("Фильмов по жанрам:")
+    genre_counts = count_by_genre(movies)
+
+    sorted_genres = sorted(
+        genre_counts.items(),
+        key=lambda item: (-item[1], item[0]),
+    )
+
+    for genre, count in sorted_genres:
+        print(f"  {genre} — {count}")
+
+    print()
+
+    genres = ", ".join(sorted(all_genres(movies)))
+    print(f"Все жанры каталога: {genres}")
+
+
+if __name__ == "__main__":
+    build_report(movies)
