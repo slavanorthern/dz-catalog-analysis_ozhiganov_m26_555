@@ -258,3 +258,29 @@ def genres_only_in_one(movies_a, movies_b):
     genres_b = all_genres(movies_b)
 
     return genres_a - genres_b
+
+
+
+# Этап 8. Итераторы и генераторы
+
+
+# Функция генератор фильмов с высоким рейтингом
+def iter_high_rated(movies, min_rating=8.0):
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+
+# Вывод фильмов с высоким рейтингом, используя iter_high_rated
+for movie in iter_high_rated(movies):
+    print(format_report_line(movie))
+
+
+# Генеративное выражение, где 
+# суммарная длительность фильмов с рейтингом выше 7
+total_high_rated_duration = sum(
+    movie["duration_min"]
+    for movie in movies
+    if movie["rating"] > 7
+)
+
