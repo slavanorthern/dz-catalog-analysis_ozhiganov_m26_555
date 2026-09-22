@@ -227,3 +227,34 @@ above_average_ratings = {
     for movie in movies
     if movie["rating"] > average
 }
+
+
+
+# Этап 7. Множества
+
+
+
+# Функция показывает уникальные жанры каталога
+def all_genres(movies):
+    genres = set()
+
+    for movie in movies:
+        genres.update(movie["genres"])
+
+    return genres
+
+
+# Функция выводит общих актеров двух фильмов
+def common_actors(movie1, movie2):
+    actors1 = set(movie1["actors"])
+    actors2 = set(movie2["actors"])
+
+    return actors1 & actors2
+
+
+# Функция покаывает жанры, которые встречаются только в первом наборе фильмов
+def genres_only_in_one(movies_a, movies_b):
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+
+    return genres_a - genres_b
